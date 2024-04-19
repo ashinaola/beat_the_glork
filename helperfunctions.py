@@ -1,12 +1,14 @@
 # Shinaola Agbede
 #################
 # Helper functions to improve main readability
-def main_menu():
-    print("=======Main menu=======")
+def main_menu(curr_room):
+    print("Main menu")
+    print("You are in: {}".format(curr_room))
     print("1. Scan room for items")
     print("2. Scan room for exit")
-    print("3. Move rooms")
-    print("4. Quit game")
+    print("3. Show current room")
+    print("4. Move rooms")
+    print("5. Quit game")
 
 def item_menu():
     print("Items menu")
@@ -18,17 +20,26 @@ def glork_menu():
     print("1. Fight")
     print("2. Escape")
 
-def room_menu():
-    pass
+def room_menu(curr_room, rooms):
+    print("Current Room: {}".format(curr_room))
+    print("1. Scan for items")
+    print("2. Scan for exit")
+
+def exit_menu():
+    print('You found the exit! This is your chance to escape!')
+    print('1. Take exit')
+    print('2. Not take the exit')
 
 # shuffles the glork to new rooms
 def shuffle_glork(glork_position):
-    pass
+    print('Glork shuffle!')
 
 # shuffles the items to new rooms
 def shuffle_items(item_list):
-    pass
+    print('Items shuffle!')
 
+def list_items(curr_room):
+    return 
 # scans the input room -> returns boolean
 def scan_room(room):
     pass
@@ -37,6 +48,13 @@ def scan_room(room):
 def find_exit(room):
     pass
 
+# to show rooms adjacent to current room
+def show_adj_rooms(curr_room, rooms):
+    return rooms[curr_room]
+
 # move player to new room
-def move_rooms():
-    pass
+def move_rooms(nxt_room, curr_room):
+    curr_room = nxt_room
+
+def check_backpack(bakpak):
+    return bakpak.values()
