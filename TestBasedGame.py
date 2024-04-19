@@ -33,7 +33,7 @@ def main():
     # Start game
     user_decision = 0
 
-    while user_decision != 5:
+    while user_decision != 6:
         # check for glork
         if glork_room == player_room:
             helperfunctions.glork_menu()
@@ -47,12 +47,19 @@ def main():
                 print("You are in: {}".format(player_room))
                 print('Listing items...')
                 time.sleep(2)
-                print(helperfunctions.list_items())
+                if player_room in item_placement.values():
+                    print(helperfunctions.list_items(player_room, ROOMS))
+                    helperfunctions.item_menu()
 
-            case 2: # option -> scan exit
+            case 2: # option -> check backpack
+                print('Checking backpack from items...')
+                time.sleep(1)
+                print(helperfunctions.check_backpack(backpack))
+
+            case 3: # option -> scan exit
                 print("You are in: {}".format(player_room))
                 print("Scanning room...")
-                time.sleep(2)
+                time.sleep(1)
                 if helperfunctions.find_exit(player_room):
                     helperfunctions.exit_menu()
                     user_decision = int(input())
@@ -61,19 +68,20 @@ def main():
                     else:
                         print('You decided against leaving.')
 
-            case 3: # option -> check current location
+            case 4: # option -> check current location
                 print('You are in: {}'.format(player_room))
 
-            case 4: # option -> move rooms
+            case 5: # option -> move rooms
                 # shuffle the glork
-                helperfunctions.shuffle_glork(glork_room)
+                helperfunctions.shuffle_glork(glork_room, ROOMS)
                 # shuffle the items
-                helperfunctions.shuffle_items(item_placement)
+                helperfunctions.shuffle_items(item_placement, init_room_selec, ITEMS)
                 # show the adjacent rooms
                 print('Showing connected rooms...')
                 print(helperfunctions.show_adj_rooms(player_room, ROOMS))
                 # take in user input
-                user_decision = input('Please select')
+                while user_decision not in helperfunctions.show_adj_rooms(player_room, ROOMS):
+                    user_decision = input('Moving rooms...Please select room:')
                 # set player room to selected
                 player_room = user_decision
 

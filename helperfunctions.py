@@ -5,12 +5,14 @@ def main_menu(curr_room):
     print("Main menu")
     print("You are in: {}".format(curr_room))
     print("1. Scan room for items")
-    print("2. Scan room for exit")
-    print("3. Show current room")
-    print("4. Move rooms")
-    print("5. Quit game")
+    print("2. Check backpack")
+    print("3. Scan room for exit")
+    print("4. Show current room")
+    print("5. Move rooms")
+    print("6. Quit game")
 
 def item_menu():
+    list_items()
     print("Items menu")
     print("1. Grab Item")
     print("2. Exit")
@@ -31,18 +33,28 @@ def exit_menu():
     print('2. Not take the exit')
 
 # shuffles the glork to new rooms
-def shuffle_glork(glork_position):
+def shuffle_glork(glork_position, rooms):
     print('Glork shuffle!')
 
-# shuffles the items to new rooms
-def shuffle_items(item_list):
-    print('Items shuffle!')
-
-def list_items(curr_room):
-    return 
-# scans the input room -> returns boolean
-def scan_room(room):
+# glork battle functions
+# execute when user decides to try to escape
+def escape_glork():
     pass
+
+# execute when user decides to fight glork
+def fight_glork():
+    pass
+
+# shuffles the items to new rooms
+def shuffle_items(item_list, room_list, items):
+    pass
+
+def list_items(curr_room, rooms):
+    return rooms[curr_room]
+
+# scans the input room -> returns boolean
+def scan_room(room, rooms):
+    return list_items(room, rooms) != None
 
 # scans the room for exit -> returns boolean
 def find_exit(room):
@@ -51,10 +63,6 @@ def find_exit(room):
 # to show rooms adjacent to current room
 def show_adj_rooms(curr_room, rooms):
     return rooms[curr_room]
-
-# move player to new room
-def move_rooms(nxt_room, curr_room):
-    curr_room = nxt_room
 
 def check_backpack(bakpak):
     return bakpak.values()
