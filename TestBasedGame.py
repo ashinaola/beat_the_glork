@@ -25,7 +25,6 @@ def main():
     exit_location = random.choice(init_room_selec)
     glork_room = random.choice(init_room_selec)
     item_rooms = random.sample(init_room_selec, 4)
-    print('FOO: {}'.format(item_rooms))
     item_placement = { item:room for (item,room) in zip(item_rooms, ITEMS) }
     print(item_placement)
     backpack = {}
@@ -35,55 +34,75 @@ def main():
 
     while user_decision != 6:
         # check for glork
+        print('FOO item_loc: {}'.format(item_rooms))
         if glork_room == player_room:
-            helperfunctions.glork_menu()
+            user_decision = int(input(helperfunctions.glork_menu()))
+            if user_decision == 1:
+                fight_res = helperfunctions.fight_glork(backpack)
+                if fight_res == True:
+                    print("You have defeated the glork! You win!")
+                    break
+                else:
+                    print("The glork has devored you. You lose..")
+                    break
+            elif user_decision == 2:
+                esc_res = helperfunctions.escape_glork(backpack)
+                if esc_res == True:
+                    print('You have escaped the glork!')
+                    print('keep going!')
+                else:
+                    print('The glork has caught you. You lose!')
+                    break
+            else:
+                print('Wrong input, enter 1 or 2...')
         # display main menu and take in user input
-        helperfunctions.main_menu(player_room)
-        user_decision = int(input())
+        else:
+            helperfunctions.main_menu(player_room)
+            user_decision = int(input())
 
-        # branching based on user decision
-        match user_decision:
-            case 1: # option -> scan room
-                print("You are in: {}".format(player_room))
-                print('Listing items...')
-                time.sleep(2)
-                if player_room in item_placement.values():
-                    print(helperfunctions.list_items(player_room, ROOMS))
-                    helperfunctions.item_menu()
+            # branching based on user decision
+            match user_decision:
+                case 1: # option -> scan room
+                    print("You are in: {}".format(player_room))
+                    print('Listing items...')
+                    time.sleep(2)
+                    if player_room in item_placement.values():
+                        print(helperfunctions.list_items(player_room, ROOMS))
+                        helperfunctions.item_menu()
 
-            case 2: # option -> check backpack
-                print('Checking backpack from items...')
-                time.sleep(1)
-                print(helperfunctions.check_backpack(backpack))
+                case 2: # option -> check backpack
+                    print('Checking backpack from items...')
+                    time.sleep(1)
+                    print(helperfunctions.check_backpack(backpack))
 
-            case 3: # option -> scan exit
-                print("You are in: {}".format(player_room))
-                print("Scanning room...")
-                time.sleep(1)
-                if helperfunctions.find_exit(player_room):
-                    helperfunctions.exit_menu()
-                    user_decision = int(input())
-                    if user_decision == 1:
-                        print('You Escaped the Compund! You win!')
-                    else:
-                        print('You decided against leaving.')
+                case 3: # option -> scan exit
+                    print("You are in: {}".format(player_room))
+                    print("Scanning room...")
+                    time.sleep(1)
+                    if helperfunctions.find_exit(player_room, exit_location):
+                        helperfunctions.exit_menu()
+                        user_decision = int(input())
+                        if user_decision == 1:
+                            print('You Escaped the Compund! You win!')
+                        else:
+                            print('You decided against leaving.')
 
-            case 4: # option -> check current location
-                print('You are in: {}'.format(player_room))
+                case 4: # option -> check current location
+                    print('You are in: {}'.format(player_room))
 
-            case 5: # option -> move rooms
-                # shuffle the glork
-                helperfunctions.shuffle_glork(glork_room, ROOMS)
-                # shuffle the items
-                helperfunctions.shuffle_items(item_placement, init_room_selec, ITEMS)
-                # show the adjacent rooms
-                print('Showing connected rooms...')
-                print(helperfunctions.show_adj_rooms(player_room, ROOMS))
-                # take in user input
-                while user_decision not in helperfunctions.show_adj_rooms(player_room, ROOMS):
-                    user_decision = input('Moving rooms...Please select room:')
-                # set player room to selected
-                player_room = user_decision
+                case 5: # option -> move rooms
+                    # shuffle the glork
+                    helperfunctions.shuffle_glork(glork_room, ROOMS)
+                    # shuffle the items
+                    helperfunctions.shuffle_items(list(item_placement.values()))
+                    # show the adjacent rooms
+                    print('Showing connected rooms...')
+                    print(helperfunctions.show_adj_rooms(player_room, ROOMS))
+                    # take in user input
+                    while user_decision not in helperfunctions.show_adj_rooms(player_room, ROOMS):
+                        user_decision = input('Moving rooms...Please select room:')
+                    # set player room to selected
+                    player_room = user_decision
 
 if __name__ == "__main__":
     main() 

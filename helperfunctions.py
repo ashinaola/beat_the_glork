@@ -1,6 +1,9 @@
 # Shinaola Agbede
 #################
 # Helper functions to improve main readability
+
+import random
+
 def main_menu(curr_room):
     print("Main menu")
     print("You are in: {}".format(curr_room))
@@ -34,31 +37,43 @@ def exit_menu():
 
 # shuffles the glork to new rooms
 def shuffle_glork(glork_position, rooms):
-    print('Glork shuffle!')
+    glork_position = random.choice(list(rooms.keys()))
+    return glork_position
 
 # glork battle functions
 # execute when user decides to try to escape
-def escape_glork():
-    pass
+def escape_glork(bakpak):
+    # check the backpack for either a jet pack or raygun
+    if 'jet pack' in bakpak:
+        return random.choice(True, False) 
+    else:
+        return False
 
 # execute when user decides to fight glork
-def fight_glork():
-    pass
+def fight_glork(bakpak):
+    if 'raygun' in bakpak:
+        return random.choice(True, False)
+    else:
+        return False
 
 # shuffles the items to new rooms
-def shuffle_items(item_list, room_list, items):
-    pass
+def shuffle_items(item_list):
+    print('from func: {}'.format(item_list))
+    return random.shuffle(item_list)
 
-def list_items(curr_room, rooms):
-    return rooms[curr_room]
+def list_items(item_loc, curr_room):
+    return item_loc[curr_room]
 
 # scans the input room -> returns boolean
 def scan_room(room, rooms):
     return list_items(room, rooms) != None
 
 # scans the room for exit -> returns boolean
-def find_exit(room):
-    pass
+def find_exit(room, ex_loc):
+    if room == ex_loc:
+        return True
+    else:
+        return False
 
 # to show rooms adjacent to current room
 def show_adj_rooms(curr_room, rooms):
