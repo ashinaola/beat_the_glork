@@ -58,7 +58,6 @@ def fight_glork(bakpak):
 
 # shuffles the items to new rooms
 def shuffle_items(item_list):
-    print('from func: {}'.format(item_list))
     return random.shuffle(item_list)
 
 def list_items(item_loc, curr_room):
